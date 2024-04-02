@@ -21,9 +21,9 @@ cp .env.example .env
 Atualize as variáveis de ambiente do arquivo .env
 ```dosini
 APP_NAME="upd8"
-APP_URL=http://localhost:8000
+APP_URL=http://localhost:8080
 
-DB_CONNECTION=mysql
+DB_CONNECTION=setup-mysql
 DB_HOST=db
 DB_PORT=3306
 DB_DATABASE=upd8
@@ -34,7 +34,7 @@ CACHE_DRIVER=redis
 QUEUE_CONNECTION=redis
 SESSION_DRIVER=redis
 
-REDIS_HOST=redis
+REDIS_HOST=setup-redis
 REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
@@ -46,47 +46,47 @@ docker compose up -d
 ```
 
 
-Acessar o container
+Executar no container
 ```sh
-docker exec -it laravel-app-app-1 bash
+docker exec setup-php php artisan config:cache
 ```
 
 
 Instalar as dependências do projeto
 ```sh
-composer install
+docker exec setup-php composer install
 ```
 
 
 Gerar a key do projeto Laravel
 ```sh
-php artisan key:generate
+docker exec setup-php php artisan key:generate
 ```
 
 Executar as migrations do projeto Laravel
 ```sh
-php artisan migrate
+docker exec setup-php php artisan migrate
 ```
 
 Executar as seeders do projeto Laravel para popular o banco de dados
 ```sh
-php artisan db:seed
+docker exec setup-php php artisan db:seed
 ```
 
 Acessar o projeto FRONT
-[http://localhost:8000](http://localhost:8000)
+[http://localhost:8080](http://localhost:8080)
 
 Acessar o PhpMyAdmin
-[http://localhost:8080/](http://localhost:8080/)
+[http://localhost:8888/](http://localhost:8888/)
 
 Endpoints da API
 
 ```sh
-GET     - http://localhost:8000/api/v1/clientes
-GET     - http://localhost:8000/api/v1/clientes/50
-POST    - http://localhost:8000/api/v1/clientes
-PUT     - http://localhost:8000/api/v1/clientes/1
-DELETE  - http://localhost:8000/api/v1/clientes/5
+GET     - http://localhost:8080/api/v1/clientes
+GET     - http://localhost:8080/api/v1/clientes/50
+POST    - http://localhost:8080/api/v1/clientes
+PUT     - http://localhost:8080/api/v1/clientes/1
+DELETE  - http://localhost:8080/api/v1/clientes/5
 ```
 
 ```sh
